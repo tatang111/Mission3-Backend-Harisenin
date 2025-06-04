@@ -3,10 +3,8 @@
 
 const { findMovies, findMovieById, insertMovie, deleteMovie, editMovie } = require('./movie.repository')
 
-const getQuery = "SELECT movies.id, movies.title, movies.video_url, GROUP_CONCAT(DISTINCT genres.genre) AS genre, movies.duration, movies.description, GROUP_CONCAT(DISTINCT filmmakers.filmmaker) AS filmmaker, GROUP_CONCAT(DISTINCT casters.caster) AS caster, movies.episode_number, movies.release_date, movies.min_age, movies.image_url FROM movies LEFT JOIN genres on genres.movie_id = movies.id LEFT JOIN filmmakers ON filmmakers.movie_id = movies.id LEFT JOIN casters ON casters.movie_id = movies.id"
-
-const getAllMovies = async () => {
-    const [movie] = await findMovies();
+const getAllMovies = async (queryParams) => {
+    const [movie] = await findMovies(queryParams);
 
     if (movie.length === 0) throw Error("Movie not added yet")
 

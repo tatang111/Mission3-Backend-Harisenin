@@ -5,14 +5,33 @@ const db = require('../db/index')
 
 const getQuery = "SELECT movies.id, movies.title, movies.video_url, GROUP_CONCAT(DISTINCT genres.genre) AS genre, movies.duration, movies.description, GROUP_CONCAT(DISTINCT filmmakers.filmmaker) AS filmmaker, GROUP_CONCAT(DISTINCT casters.caster) AS caster, movies.episode_number, movies.release_date, movies.min_age, movies.image_url FROM movies LEFT JOIN genres on genres.movie_id = movies.id LEFT JOIN filmmakers ON filmmakers.movie_id = movies.id LEFT JOIN casters ON casters.movie_id = movies.id"
 
-const findMovies = async () => {
-    const movies = db.query(`${getQuery} GROUP BY movies.id`);
+const findMovies = async (queryParams) => {
+    const genreList = queryParams.genre && queryParams.genre.split(",")
+    const genreParams = queryParams.genre ? `HAVING ${genreList.map(g => `FIND_IN_SET(LOWER('${g}'), LOWER(genre))`).join(" OR ")}` : ""
+    // HAVING FIND_IN_SET(LOWER('aksi'), genre) OR FIND_IN_SET(LOWER('petualang'), genre)
+
+    const minAgeParams = queryParams.min_age && ` min_age = ${queryParams.min_age}`;
+
+    const orderParams = queryParams.order === "desc" ? 'DESC' : 'ASC';
+    const sortParams = queryParams.sortBy ? `ORDER BY ${queryParams.sortBy} ${orderParams}` : ""
+
+    const searchParams = queryParams.search ? ` LOWER(movies.title) LIKE '%${queryParams.search}%'` : ""
+    let whereClause = '';
+    if (minAgeParams && searchParams) {
+        whereClause = `WHERE ${searchParams} AND ${minAgeParams}`
+    } else if (minAgeParams) {
+        whereClause = `WHERE ${minAgeParams}`
+    } else if (searchParams) {
+        whereClause = `WHERE ${searchParams}`
+    }
+
+    const movies = await db.query(`${getQuery} ${whereClause} GROUP BY movies.id ${genreParams} ${sortParams}`);
 
     return movies
 }
 
 const findMovieById = async (movieId) => {
-    const movie = db.query(`${getQuery} WHERE movies.id = ? GROUP BY movies.id`, [movieId])
+    const movie = await db.query(`${getQuery} WHERE movies.id = ? GROUP BY movies.id`, [movieId])
 
     return movie
 }

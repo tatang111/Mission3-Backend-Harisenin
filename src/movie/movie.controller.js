@@ -2,7 +2,8 @@
 // usually handle body validation as well
 
 const express = require('express');
-const { getAllMovies, getMovieById, createMovie, deleteMovieById, editMovieById } = require('./movie.service')
+const { getAllMovies, getMovieById, createMovie, deleteMovieById, editMovieById } = require('./movie.service');
+const authenticateToken = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -22,8 +23,9 @@ const formatMovieData = (movie) => ({
 })
 
 router.get("/", async (req, res) => {
+    const queryParams = req.query
     try {
-        const movie = await getAllMovies();
+        const movie = await getAllMovies(queryParams);
 
         res.status(200).send(movie.map(formatMovieData))
     } catch (error) {
@@ -41,7 +43,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
     try {
         const movie = await createMovie(req.body);
 
@@ -51,7 +53,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
     const { title, video_url, image_url, duration, description, episode_number, release_date, min_age, genre, filmmaker, caster } = req.body;
     try {
         await getMovieById(parseInt(req.params.id))
@@ -66,7 +68,7 @@ router.put("/:id", async (req, res) => {
     }
 })
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateToken, async (req, res) => {
     try {
         await getMovieById(parseInt(req.params.id))
         const movie = await editMovieById(req.body, parseInt(req.params.id))
@@ -78,7 +80,7 @@ router.patch("/:id", async (req, res) => {
     }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
     try {
         await deleteMovieById(parseInt(req.params.id))
 
