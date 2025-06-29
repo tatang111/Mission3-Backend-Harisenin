@@ -50,7 +50,7 @@ Aplikasi backend sederhana untuk mengelola data film (movies) dengan sistem aute
 
 Buat file `.env` dan isi seperti berikut:
 
-```env
+env
 PORT=3000
 
 ACCESS_TOKEN_SECRET=2b06453ccf588043e55a48229aa1ac3a51cbbccc4a3968768af4e5dff867dfac19bf91143d706917e6a08175e008c87c72a42b3f894e9e6e94678bac6cf68659
@@ -60,6 +60,8 @@ REFRESH_TOKEN_SECRET=9dba923c76a1020af87839256a2a3761a5b807a3f7639bdf5dd36f07780
 EMAIL_USER=lintangpsa@gmail.com
 EMAIL_PASS=vrawtmgbagcrrdsj
 ⚠️ Jangan pernah commit .env ke public repo!
+
+---
 
 🛠️ Installation & Running
 # Clone repositori
