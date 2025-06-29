@@ -50,7 +50,7 @@ Aplikasi backend sederhana untuk mengelola data film (movies) dengan sistem aute
 
 Buat file `.env` dan isi seperti berikut:
 
-env
+```env
 PORT=3000
 
 ACCESS_TOKEN_SECRET=2b06453ccf588043e55a48229aa1ac3a51cbbccc4a3968768af4e5dff867dfac19bf91143d706917e6a08175e008c87c72a42b3f894e9e6e94678bac6cf68659
@@ -61,56 +61,63 @@ EMAIL_USER=lintangpsa@gmail.com
 EMAIL_PASS=vrawtmgbagcrrdsj
 ⚠️ Jangan pernah commit .env ke public repo!
 
----
-
-🛠️ Installation & Running
+## 🛠️ Installation & Running
 # Clone repositori
 git clone https://github.com/tatang111/Mission3-Backend-Harisenin.git
 cd Mission3-Backend-Harisenin
 
+
 # Install dependencies
 npm install
+
 
 # Jalankan server
 node server.js
 Server akan berjalan di http://localhost:3000
 
-📦 API Endpoints
-🔐 Auth
+
+#### 📦 API Endpoints
+## 🔐 Auth
 Method	Endpoint	Description
 POST	/auth/register	Register user + verifikasi email
-POST	/auth/login	    Login user dan dapatkan JWT
+POST	/auth/login	Login user dan dapatkan JWT
 
-🎬 Movies
+
+##🎬 Movies
 Akses endpoint di bawah ini butuh JWT di header:
 Authorization: Bearer <your_token>
 
-Method	Endpoint	Description
-GET	/movies	          Ambil semua movie
-GET	/movies/:id	      Ambil movie berdasarkan ID
-POST	/movies	        Tambah movie baru
-PUT	/movies/:id	      Replace data movie by ID
-PATCH	/movies/:id	    Update sebagian data movie
-DELETE	/movies/:id	  Hapus movie berdasarkan ID
 
-🖼️ Upload Image
+## Method	Endpoint	Description
+GET	/movies	                Ambil semua movie
+GET	/movies/:id	        Ambil movie berdasarkan ID
+POST	/movies	                Tambah movie baru
+PUT	/movies/:id	        Replace data movie by ID
+PATCH	/movies/:id	        Update sebagian data movie
+DELETE	/movies/:id	        Hapus movie berdasarkan ID
+
+
+##🖼️ Upload Image
 Method	Endpoint	Description
 POST	/upload-image	Upload file gambar ke folder /upload
-
 Gunakan form-data dengan key image.
 
-🔐 JWT Auth & Middleware
+
+## 🔐 JWT Auth & Middleware
 Semua endpoint CRUD movie serta upload image memerlukan JWT Auth.
 Setelah login, simpan accessToken dan gunakan pada header:
 
-Authorization: Bearer <accessToken>
-📧 Verifikasi Email
+
+#### Authorization: Bearer <accessToken>
+## 📧 Verifikasi Email
 Saat register, user akan dikirim email berisi link verifikasi.
 Gunakan EMAIL_USER dan EMAIL_PASS untuk mengatur akun pengirim.
 
-⚙️ Database
+
+## ⚙️ Database
 Pastikan Anda sudah mengatur koneksi ke MySQL di file config/database.js atau sejenisnya.
 Jalankan migrasi jika ada.
 
-📄 License
+
+## 📄 License
 MIT © 2025 tatang111
