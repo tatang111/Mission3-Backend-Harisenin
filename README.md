@@ -29,17 +29,20 @@ Aplikasi backend sederhana untuk mengelola data film (movies) dengan sistem aute
 ## 📁 Folder Structure (Utama)
 
 ├── controllers/
-├── middlewares/
-├── models/
-├── routes/
-├── uploads/ # Folder untuk gambar upload
-├── .env
-├── app.js
-└── server.js
 
-yaml
-Copy
-Edit
+├── middlewares/
+
+├── models/
+
+├── routes/
+
+├── uploads/ # Folder untuk gambar upload
+
+├── .env
+
+├── app.js
+
+└── server.js
 
 ---
 
@@ -59,9 +62,6 @@ EMAIL_PASS=vrawtmgbagcrrdsj
 ⚠️ Jangan pernah commit .env ke public repo!
 
 🛠️ Installation & Running
-bash
-Copy
-Edit
 # Clone repositori
 git clone https://github.com/tatang111/Mission3-Backend-Harisenin.git
 cd Mission3-Backend-Harisenin
@@ -77,19 +77,19 @@ Server akan berjalan di http://localhost:3000
 🔐 Auth
 Method	Endpoint	Description
 POST	/auth/register	Register user + verifikasi email
-POST	/auth/login	Login user dan dapatkan JWT
+POST	/auth/login	    Login user dan dapatkan JWT
 
 🎬 Movies
 Akses endpoint di bawah ini butuh JWT di header:
 Authorization: Bearer <your_token>
 
 Method	Endpoint	Description
-GET	/movies	Ambil semua movie
-GET	/movies/:id	Ambil movie berdasarkan ID
-POST	/movies	Tambah movie baru
-PUT	/movies/:id	Replace data movie by ID
-PATCH	/movies/:id	Update sebagian data movie
-DELETE	/movies/:id	Hapus movie berdasarkan ID
+GET	/movies	          Ambil semua movie
+GET	/movies/:id	      Ambil movie berdasarkan ID
+POST	/movies	        Tambah movie baru
+PUT	/movies/:id	      Replace data movie by ID
+PATCH	/movies/:id	    Update sebagian data movie
+DELETE	/movies/:id	  Hapus movie berdasarkan ID
 
 🖼️ Upload Image
 Method	Endpoint	Description
@@ -101,16 +101,10 @@ Gunakan form-data dengan key image.
 Semua endpoint CRUD movie serta upload image memerlukan JWT Auth.
 Setelah login, simpan accessToken dan gunakan pada header:
 
-http
-Copy
-Edit
 Authorization: Bearer <accessToken>
 📧 Verifikasi Email
 Saat register, user akan dikirim email berisi link verifikasi.
 Gunakan EMAIL_USER dan EMAIL_PASS untuk mengatur akun pengirim.
-
-🧪 Postman Collection
-Koleksi Postman tersedia di file: postman_collection.json (tambahkan jika ada)
 
 ⚙️ Database
 Pastikan Anda sudah mengatur koneksi ke MySQL di file config/database.js atau sejenisnya.
